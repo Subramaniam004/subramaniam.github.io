@@ -3,38 +3,29 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Subramaniam B — Cybersecurity Portfolio | Web Developer & Pentester</title>
-  <meta name="description" content="Cybersecurity-focused portfolio for Subramaniam B, showcasing pentesting, web development, CTF experience, and professional certifications." />
-  <meta name="keywords" content="cybersecurity, portfolio, web developer, pentesting, CTF, ethical hacking, Subramaniam" />
+  <title>Subramaniam B — Cybersecurity Portfolio</title>
+  <meta name="description" content="Enterprise-grade cybersecurity portfolio showcasing professional experience in pentesting, web development, and security research." />
+  <meta name="keywords" content="cybersecurity, portfolio, web developer, pentesting, ethical hacking" />
   <meta name="author" content="Subramaniam B" />
-
-  <!-- Open Graph -->
   <meta property="og:title" content="Subramaniam B — Cybersecurity Portfolio" />
-  <meta property="og:description" content="Security-focused web developer creating enterprise-ready interfaces, pentest reports, and CTF write-ups." />
+  <meta property="og:description" content="Security-focused developer creating enterprise-ready interfaces and pragmatic security assessments." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://subramaniam004.github.io" />
-  <meta property="og:image" content="https://subramaniam004.github.io/assets/images/og-image.png" />
-
-  <!-- Canonical -->
-  <link rel="canonical" href="https://subramaniam004.github.io" />
-
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="css/glitch-effect.css" />
 </head>
 <body>
   <header class="site-header">
     <div class="container header-inner">
       <a class="brand" href="#hero">
-        <span class="brand-mark"></></span>
-        <span>subbu.dev</span>
+        <span class="brand-mark" aria-hidden="true">></span>
+        <span>Sub's Portfolio</span>
       </a>
       <button id="mobile-menu-toggle" class="mobile-menu-toggle" aria-label="Toggle navigation menu">
-        <span></span>
-        <span></span>
-        <span></span>
+        <span></span><span></span><span></span>
       </button>
       <nav class="site-nav" id="site-nav">
         <div class="nav-left">
@@ -57,382 +48,437 @@
   </header>
 
   <main>
+    <!-- HERO -->
     <section id="hero" class="hero">
-      <div class="hero-background" aria-hidden="true">
-        <span class="ball-1"></span>
-        <span class="ball-2"></span>
-        <span class="ball-3"></span>
-      </div>
+      <div class="hero-bg-gradient"></div>
       <canvas id="matrix-canvas" aria-hidden="true"></canvas>
-
-<div class="container hero-grid">
+      <canvas id="network-canvas" aria-hidden="true"></canvas>
+      <div class="hero-grid-overlay"></div>
+      <div class="hero-particles" id="hero-particles"></div>
+      <div class="hero-edge-left" id="hero-edge-left"></div>
+      <div class="hero-edge-right" id="hero-edge-right"></div>
+      <div class="hero-glow-overlay"></div>
+      <div class="hero-fade-bottom"></div>
+      <div id="cursor-glow" class="cursor-glow"></div>
+      <div class="container hero-grid">
         <div class="hero-copy">
-          <h1 class="wavy-hover-container">Hi, I'm <span class="name-hover" id="name-hover" aria-label="Subramaniam B"><span>S</span><span>u</span><span>b</span><span>r</span><span>a</span><span>m</span><span>i</span><span>a</span><span>m</span>&nbsp;<span>B</span></span></h1>
-          <p class="wavy-hover-container">Security-focused web developer creating enterprise-ready interfaces, pentest reports, and CTF write-ups for modern digital teams.</p>
-
+          <h1 class="hero-heading">Hi, I'm <span class="name-wave" id="name-wave">Subramaniam B</span></h1>
+          <p class="hero-description wave-text">Exploring cybersecurity through web application security, vulnerability research, penetration testing, and secure software practices. Focused on learning, testing, and building stronger defenses.</p>
           <div class="hero-typing">
-            <span>Currently:</span>
+            <span>Current focus:</span>
             <span class="typing-container">
               <span id="typing-text" class="typing-text"></span>
-              <span class="typing-cursor">|</span>
+              <span class="typing-cursor" aria-hidden="true">|</span>
             </span>
           </div>
-
           <div class="hero-actions">
             <a class="btn btn-primary" href="#projects">View Work</a>
-            <a class="btn btn-secondary" href="#contact">Get In Touch</a>
+            <a class="btn btn-secondary" href="#contact">Contact Me</a>
           </div>
         </div>
-
-        <div class="hero-visual fade-item">
-          <div class="glass-card terminal-card">
+        <div class="hero-visual">
+          <div class="terminal-card">
             <div class="terminal-header">
-              <div>
-                <span class="terminal-indicator terminal-indicator-red"></span>
-                <span class="terminal-indicator terminal-indicator-yellow"></span>
-                <span class="terminal-indicator terminal-indicator-green"></span>
+              <div class="terminal-indicators">
+                <span class="terminal-indicator terminal-indicator-red" aria-hidden="true"></span>
+                <span class="terminal-indicator terminal-indicator-yellow" aria-hidden="true"></span>
+                <span class="terminal-indicator terminal-indicator-green" aria-hidden="true"></span>
               </div>
-              <span class="terminal-title">subbu@portfolio: ~</span>
+              <span class="terminal-title">subbu@cyber: ~</span>
             </div>
             <div class="terminal-body" id="terminal-body">
               <div class="terminal-output" id="terminal-output"></div>
-              <div class="terminal-input-line" id="terminal-input-line">
-                <span class="terminal-prompt">$</span>
-                <span class="terminal-cursor" id="terminal-cursor"></span>
-                <span class="terminal-input" id="terminal-input" contenteditable="true" spellcheck="false" data-placeholder="Type a command..."></span>
+              <div class="terminal-input-line">
+                <span class="terminal-prompt" aria-hidden="true">$</span>
+                <span class="terminal-input" id="terminal-input" contenteditable="true" spellcheck="false" data-placeholder="Type help for commands..."></span>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <div class="scroll-indicator" id="scroll-indicator">
+        <div class="scroll-mouse">
+          <div class="scroll-wheel"></div>
+        </div>
+        <span>Scroll</span>
+      </div>
     </section>
 
-    <section id="about" class="section">
+    <div class="section-separator"><div class="sep-line"></div></div>
+
+    <!-- ABOUT -->
+    <section id="about" class="section section-alt">
       <div class="container">
-        <div class="section-title fade-item">
+        <div class="section-title">
           <span>01</span>
           <h2>About</h2>
         </div>
-        <p class="section-description fade-item">I'm a cybersecurity student and web developer delivering security-conscious experiences, fast frontends, and practical vulnerability research for ambitious teams.</p>
-
         <div class="about-grid">
-          <div class="about-copy fade-item">
-            <p>My work blends secure architecture, polished interfaces, and practical attack surface analysis. I build dependable web systems while documenting security gaps with clear, actionable language.</p>
-            <p>With hands-on experience in web exploitation, secure development, and capture the flag events, I focus on making applications robust, accessible, and maintainable.</p>
+          <div class="about-profile">
+            <div class="profile-placeholder" aria-label="Profile photo placeholder">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+          </div>
+          <div class="about-content">
+            <div class="about-copy">
+              <p>Cybersecurity student and web developer exploring the intersection of application security, network defense, and cloud technologies.</p>
+              <p>Focused on building secure web applications, analyzing vulnerabilities, and understanding how modern systems are designed, deployed, and protected. My interests include penetration testing, network security, cloud security, secure coding, and infrastructure security.</p>
+              <p>Currently pursuing MCA and developing practical expertise through projects, CTF challenges, security research, and hands-on experimentation.</p>
+            </div>
+            <div class="about-actions">
+              <a class="btn btn-primary" href="Subramaniam_Bhavimane_Resume_New.pdf" target="_blank" rel="noopener noreferrer">View Resume</a>
+              <a class="btn btn-secondary" href="Subramaniam_Bhavimane_Resume_New.pdf" download>Download Resume</a>
+            </div>
           </div>
         </div>
-
-        <!-- Resume card rendered by JS -->
-        <div id="resume-container"></div>
       </div>
     </section>
 
+    <div class="section-separator"><div class="sep-line"></div></div>
+
+    <!-- SKILLS -->
     <section id="skills" class="section">
       <div class="container">
-        <div class="section-title fade-item">
+        <div class="section-title">
           <span>02</span>
           <h2>Skills</h2>
         </div>
-        <p class="section-description fade-item">Core technical skills drawn from my academic background</p>
-
+        <p class="section-description">Technical expertise across development, security, and cloud platforms.</p>
         <div class="skills-grid">
-          <article class="skill-card fade-item">
+          <article class="skill-card">
             <h3>Programming & Development</h3>
-            <div class="skill-badges" role="list" aria-label="Programming and Development skills">
-              <span class="skill-badge" role="listitem">Python</span>
-              <span class="skill-badge" role="listitem">Java</span>
-              <span class="skill-badge" role="listitem">SQL</span>
-              <span class="skill-badge" role="listitem">HTML</span>
-              <span class="skill-badge" role="listitem">CSS</span>
-              <span class="skill-badge" role="listitem">JavaScript</span>
-              <span class="skill-badge" role="listitem">Object-Oriented Programming</span>
-              <span class="skill-badge" role="listitem">Data Structures</span>
-              <span class="skill-badge" role="listitem">DBMS</span>
-              <span class="skill-badge" role="listitem">Computer Networks</span>
+            <div class="skill-badges">
+              <span class="skill-badge">Python</span>
+              <span class="skill-badge">Java</span>
+              <span class="skill-badge">HTML</span>
+              <span class="skill-badge">CSS</span>
+              <span class="skill-badge">SQL</span>
+              <span class="skill-badge">OOP</span>
+              <span class="skill-badge">DBMS</span>
+              <span class="skill-badge">Computer Networks</span>
             </div>
           </article>
-          <article class="skill-card fade-item">
+          <article class="skill-card">
             <h3>Cybersecurity</h3>
-            <div class="skill-badges" role="list" aria-label="Cybersecurity skills">
-              <span class="skill-badge" role="listitem">TryHackMe</span>
-              <span class="skill-badge" role="listitem">Web Application Security</span>
-              <span class="skill-badge" role="listitem">Network Security Fundamentals</span>
-              <span class="skill-badge" role="listitem">OWASP</span>
-              <span class="skill-badge" role="listitem">Vulnerability Assessment</span>
-              <span class="skill-badge" role="listitem">Password Security</span>
-              <span class="skill-badge" role="listitem">Log Analysis</span>
+            <div class="skill-badges">
+              <span class="skill-badge">TryHackMe</span>
+              <span class="skill-badge">OWASP</span>
+              <span class="skill-badge">Password Security</span>
+              <span class="skill-badge">Log Analysis</span>
             </div>
           </article>
-          <article class="skill-card fade-item">
-            <h3>Tools & Cloud</h3>
-            <div class="skill-badges" role="list" aria-label="Tools and Platforms skills">
-              <span class="skill-badge" role="listitem">Git</span>
-              <span class="skill-badge" role="listitem">GitHub</span>
-              <span class="skill-badge" role="listitem">Linux</span>
-              <span class="skill-badge" role="listitem">Command Line (CLI)</span>
-              <span class="skill-badge" role="listitem">AWS (S3, RDS, SNS)</span>
-              <span class="skill-badge" role="listitem">Google App Engine</span>
-              <span class="skill-badge" role="listitem">Nmap</span>
-              <span class="skill-badge" role="listitem">Burp Suite</span>
-              <span class="skill-badge" role="listitem">Gobuster</span>
-              <span class="skill-badge" role="listitem">Hydra</span>
-              <span class="skill-badge" role="listitem">Metasploit Framework</span>
-              <span class="skill-badge" role="listitem">John the Ripper</span>
+          <article class="skill-card">
+            <h3>Tools & Platforms</h3>
+            <div class="skill-badges">
+              <span class="skill-badge">Git</span>
+              <span class="skill-badge">Linux</span>
+              <span class="skill-badge">Burp Suite</span>
+              <span class="skill-badge">Nmap</span>
+              <span class="skill-badge">Wireshark</span>
+              <span class="skill-badge">Metasploit</span>
+              <span class="skill-badge">AWS</span>
+              <span class="skill-badge">Google Cloud</span>
             </div>
           </article>
         </div>
       </div>
     </section>
 
-    <section id="projects" class="section">
+    <div class="section-separator"><div class="sep-line"></div></div>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="section section-alt">
       <div class="container">
-        <div class="section-title fade-item">
+        <div class="section-title">
           <span>03</span>
           <h2>Projects</h2>
         </div>
+        <p class="section-description">Featured work in cybersecurity and web development.</p>
         <div class="projects-grid">
-          <article class="project-card fade-item placeholder-card">
+          <article class="project-card placeholder-card">
+            <div class="project-preview"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="2" y1="8" x2="22" y2="8"/></svg></div>
             <div class="project-card-content">
               <h3>Project Coming Soon</h3>
-              <p>Placeholder for future project content. Add a live demo and GitHub link when ready.</p>
-              <!-- Tech stack badges, GitHub link, live demo, and status can be added here -->
+              <p>Exciting cybersecurity project in development.</p>
+              <div class="project-tags"><span>Cybersecurity</span></div>
+              <div class="project-actions">
+                <button class="btn btn-primary" disabled>View Demo</button>
+                <button class="btn btn-secondary" disabled>GitHub</button>
+              </div>
             </div>
           </article>
-          <article class="project-card fade-item placeholder-card">
+          <article class="project-card placeholder-card">
+            <div class="project-preview"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
             <div class="project-card-content">
               <h3>Project Coming Soon</h3>
-              <p>Placeholder for future project content. Add a live demo and GitHub link when ready.</p>
+              <p>Security tool development underway.</p>
+              <div class="project-tags"><span>Security Tools</span></div>
+              <div class="project-actions">
+                <button class="btn btn-primary" disabled>View Demo</button>
+                <button class="btn btn-secondary" disabled>GitHub</button>
+              </div>
             </div>
           </article>
-          <article class="project-card fade-item placeholder-card">
+          <article class="project-card placeholder-card">
+            <div class="project-preview"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.5"><polyline points="4 17 10 11 13 14 20 7"/><polyline points="4 7 10 13 13 10 20 17"/></svg></div>
             <div class="project-card-content">
               <h3>Project Coming Soon</h3>
-              <p>Placeholder for future project content. Add a live demo and GitHub link when ready.</p>
+              <p>Web application security analysis tool.</p>
+              <div class="project-tags"><span>Web Security</span></div>
+              <div class="project-actions">
+                <button class="btn btn-primary" disabled>View Demo</button>
+                <button class="btn btn-secondary" disabled>GitHub</button>
+              </div>
+            </div>
+          </article>
+          <article class="project-card placeholder-card">
+            <div class="project-preview"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+            <div class="project-card-content">
+              <h3>Project Coming Soon</h3>
+              <p>Vulnerability assessment toolkit.</p>
+              <div class="project-tags"><span>Pentesting</span></div>
+              <div class="project-actions">
+                <button class="btn btn-primary" disabled>View Demo</button>
+                <button class="btn btn-secondary" disabled>GitHub</button>
+              </div>
+            </div>
+          </article>
+          <article class="project-card placeholder-card">
+            <div class="project-preview"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.5"><path d="M18 10h-1.26A8 8 0 1 0 9 20.76"/><polyline points="16 16 12 16 14 6"/></svg></div>
+            <div class="project-card-content">
+              <h3>Project Coming Soon</h3>
+              <p>Cloud security monitoring solution.</p>
+              <div class="project-tags"><span>Cloud Security</span></div>
+              <div class="project-actions">
+                <button class="btn btn-primary" disabled>View Demo</button>
+                <button class="btn btn-secondary" disabled>GitHub</button>
+              </div>
+            </div>
+          </article>
+          <article class="project-card placeholder-card">
+            <div class="project-preview"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+            <div class="project-card-content">
+              <h3>Project Coming Soon</h3>
+              <p>Network defense system.</p>
+              <div class="project-tags"><span>Network Security</span></div>
+              <div class="project-actions">
+                <button class="btn btn-primary" disabled>View Demo</button>
+                <button class="btn btn-secondary" disabled>GitHub</button>
+              </div>
             </div>
           </article>
         </div>
       </div>
     </section>
 
-    <section id="education" class="section education-section">
+    <div class="section-separator"><div class="sep-line"></div></div>
+
+    <!-- EDUCATION -->
+    <section id="education" class="section">
       <div class="container">
-        <div class="section-title fade-item">
+        <div class="section-title">
           <span>04</span>
           <h2>Education</h2>
         </div>
-        <p class="section-description fade-item">Academic milestones and cybersecurity-focused learning, presented as a clean timeline.</p>
-
-        <div class="education-timeline fade-item">
+        <p class="section-description">Academic background and qualifications.</p>
+        <div class="education-timeline">
           <div class="timeline-item">
-            <div class="timeline-marker">
-              <span class="timeline-dot"></span>
-            </div>
+            <span class="timeline-dot"></span>
             <div class="timeline-content">
               <div class="timeline-header">
                 <h3>Master of Computer Applications (MCA)</h3>
-                <span class="timeline-date badge badge-present">2025 – Present</span>
+                <span class="timeline-date">Current</span>
               </div>
               <p class="timeline-institution">Gogte Institute of Technology, Belagavi</p>
-              <div class="timeline-meta">
-                <span class="badge badge-highlight">CGPA: —</span>
-              </div>
-              <ul class="timeline-list">
-                <li>Currently pursuing MCA with a focus on Software Development and Cybersecurity.</li>
-                <li>Actively learning secure software development, networking, Linux, cloud technologies, and ethical hacking.</li>
-                <li>Building practical projects while strengthening problem-solving and programming skills.</li>
-              </ul>
-              <!-- Relevant Coursework: Advanced Web Development, Network Security, Cryptography, Cloud Computing -->
-              <!-- Awards/Activities: TBD -->
+              <p class="timeline-score">2025 – Present | Pursuing</p>
             </div>
           </div>
-
           <div class="timeline-item">
-            <div class="timeline-marker">
-              <span class="timeline-dot"></span>
-            </div>
+            <span class="timeline-dot"></span>
             <div class="timeline-content">
               <div class="timeline-header">
                 <h3>Bachelor of Computer Applications (BCA)</h3>
-                <span class="timeline-date badge">2022 – 2025</span>
+                <span class="timeline-date">2022 – 2025</span>
               </div>
-              <p class="timeline-institution">KLE'S College of BCA, RLSI, Belagavi</p>
-              <div class="timeline-meta">
-                <span class="badge badge-highlight">CGPA: 9.28 / 10</span>
-                <span class="timeline-status">First Class Distinction</span>
-              </div>
-              <ul class="timeline-list">
-                <li>Graduated with First Class Distinction.</li>
-                <li>Built a strong foundation in Programming, Database Management Systems, Computer Networks, Operating Systems, Object-Oriented Programming, and Web Development.</li>
-                <li>Developed academic and personal projects in Python, Java, SQL, HTML, CSS, and JavaScript.</li>
-              </ul>
-              <!-- Relevant Coursework: Data Structures, Algorithms, DBMS, Computer Networks, OOP, Web Development -->
-              <!-- Awards: First Class Distinction -->
+              <p class="timeline-institution">KLE's College of BCA, RLSI, Belagavi</p>
+              <p class="timeline-score">CGPA: 9.28/10 (First Class Distinction)</p>
             </div>
           </div>
-
           <div class="timeline-item">
-            <div class="timeline-marker">
-              <span class="timeline-dot"></span>
-            </div>
+            <span class="timeline-dot"></span>
             <div class="timeline-content">
               <div class="timeline-header">
                 <h3>Pre-University Course (Commerce)</h3>
-                <span class="timeline-date badge">2020 – 2022</span>
+                <span class="timeline-date">2020 – 2022</span>
               </div>
               <p class="timeline-institution">Gogte PU College of Commerce, Belagavi</p>
-              <div class="timeline-meta">
-                <span class="badge badge-highlight">Score: 89%</span>
-              </div>
-              <ul class="timeline-list">
-                <li>Studied Commerce with Computer Applications.</li>
-                <li>Developed analytical thinking, communication skills, and an interest in technology.</li>
-              </ul>
+              <p class="timeline-score">Percentage: 89%</p>
             </div>
           </div>
-
           <div class="timeline-item">
-            <div class="timeline-marker">
-              <span class="timeline-dot"></span>
-            </div>
+            <span class="timeline-dot"></span>
             <div class="timeline-content">
               <div class="timeline-header">
-                <h3>Secondary School (SSLC)</h3>
-                <span class="timeline-date badge">2019 – 2020</span>
+                <h3>SSLC (10th Grade)</h3>
+                <span class="timeline-date">2018 – 2020</span>
               </div>
-              <p class="timeline-institution">Devendra Jinagouda High School, Belagavi</p>
-              <div class="timeline-meta">
-                <span class="badge badge-highlight">Score: 90.56%</span>
-              </div>
-              <ul class="timeline-list">
-                <li>Built a strong academic foundation and consistently maintained excellent performance.</li>
-              </ul>
+              <p class="timeline-institution">Devendra Jinagouda English Medium High School, Belagavi</p>
+              <p class="timeline-score">Percentage: 90.56%</p>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="certifications" class="section">
+    <div class="section-separator"><div class="sep-line"></div></div>
+
+    <!-- CERTIFICATIONS -->
+    <section id="certifications" class="section section-alt">
       <div class="container">
-        <div class="section-title fade-item">
-          <span>06</span>
+        <div class="section-title">
+          <span>05</span>
           <h2>Certifications</h2>
         </div>
-        <div id="certifications-container" class="certifications-wrapper"></div>
+        <p class="section-description">Verified certifications across cybersecurity and technology domains.</p>
+        <div class="certifications-wrapper" id="certifications-container"></div>
       </div>
     </section>
 
+    <div class="section-separator"><div class="sep-line"></div></div>
+
+    <!-- ACHIEVEMENTS -->
     <section id="achievements" class="section">
       <div class="container">
-        <div class="section-title fade-item">
-          <span>08</span>
+        <div class="section-title">
+          <span>06</span>
           <h2>Achievements</h2>
         </div>
-        <p class="section-description fade-item">Milestones, awards, and accomplishments that highlight professional growth.</p>
-        <div id="achievements-container" class="certifications-wrapper"></div>
+        <p class="section-description">Milestones and accomplishments in cybersecurity journey.</p>
+        <div class="achievements-grid">
+          <article class="achievement-card">
+            <div class="achievement-badge">🏆</div>
+            <h3 class="achievement-title">Achievement Coming Soon</h3>
+            <p class="achievement-desc">Placeholder for upcoming achievements.</p>
+          </article>
+          <article class="achievement-card">
+            <div class="achievement-badge">🏆</div>
+            <h3 class="achievement-title">Achievement Coming Soon</h3>
+            <p class="achievement-desc">Placeholder for upcoming achievements.</p>
+          </article>
+          <article class="achievement-card">
+            <div class="achievement-badge">🏆</div>
+            <h3 class="achievement-title">Achievement Coming Soon</h3>
+            <p class="achievement-desc">Placeholder for upcoming achievements.</p>
+          </article>
+          <article class="achievement-card">
+            <div class="achievement-badge">🏆</div>
+            <h3 class="achievement-title">Achievement Coming Soon</h3>
+            <p class="achievement-desc">Placeholder for upcoming achievements.</p>
+          </article>
+        </div>
       </div>
     </section>
 
-    <section id="contact" class="section">
+    <div class="section-separator"><div class="sep-line"></div></div>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section section-alt">
       <div class="container">
-        <div class="section-title fade-item">
-          <span>09</span>
+        <div class="section-title">
+          <span>07</span>
           <h2>Contact</h2>
         </div>
-        <p class="section-description fade-item">Ready to discuss secure web development, pentesting support, or collaboration on cybersecurity initiatives.</p>
-
+        <p class="section-description">Available for internships and cybersecurity opportunities.</p>
         <div class="contact-grid">
-          <div class="contact-panel fade-item">
-            <h3>Let's connect</h3>
-            <p>A reliable partner for polished web interfaces and pragmatic security assessments.</p>
-            <ul>
-              <li><strong>Email:</strong> <a href="mailto:subramaniambhavimane01@gmail.com" id="contact-email">subramaniambhavimane01@gmail.com</a> <button id="copy-email-btn" class="btn btn-secondary" style="padding: 0.3rem 0.7rem; font-size: 0.8rem; margin-left: 0.5rem;" aria-label="Copy email address">📋 Copy</button></li>
-              <li><strong>Location:</strong> Belgaum, India</li>
-              <li><strong>Availability:</strong> Open to internship and job opportunities</li>
-            </ul>
-
-            <h3 style="margin-top: 2rem;">Developer Profiles</h3>
-            <div class="profiles-icons-grid">
-              <a href="https://github.com/Subramaniam004" target="_blank" rel="noopener noreferrer" class="profile-icon-link" aria-label="GitHub">
-                <img class="profile-platform-icon" src="https://cdn.simpleicons.org/github/00d4aa" alt="GitHub" />
+          <div class="contact-panel">
+            <h3>Get in Touch</h3>
+            <div class="contact-cards" id="contact-cards">
+              <a href="https://github.com/Subramaniam004" target="_blank" rel="noopener noreferrer" class="contact-card">
+                <svg class="contact-icon" width="28" height="28" viewBox="0 0 24 24" fill="#333"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 1.911 1.911 2.307 0 0 0 0v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+                <span class="contact-card-name">GitHub</span>
+                <span class="contact-card-user">@Subramaniam004</span>
               </a>
-              <a href="https://www.linkedin.com/in/subramaniam-bhavimane004/" target="_blank" rel="noopener noreferrer" class="profile-icon-link" aria-label="LinkedIn">
-                <img class="profile-platform-icon" src="https://cdn.simpleicons.org/linkedin/00d4aa" alt="LinkedIn" />
+              <a href="https://www.linkedin.com/in/subramaniam-bhavimane004/" target="_blank" rel="noopener noreferrer" class="contact-card">
+                <svg class="contact-icon" width="28" height="28" viewBox="0 0 24 24" fill="#0A66C2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                <span class="contact-card-name">LinkedIn</span>
+                <span class="contact-card-user">@subramaniam-bhavimane004</span>
               </a>
-              <a href="https://tryhackme.com/p/subramaniam004" target="_blank" rel="noopener noreferrer" class="profile-icon-link" aria-label="TryHackMe">
-                <img class="profile-platform-icon" src="https://cdn.simpleicons.org/tryhackme/00d4aa" alt="TryHackMe" />
+              <a href="https://tryhackme.com/p/subramaniam004" target="_blank" rel="noopener noreferrer" class="contact-card">
+                <svg class="contact-icon" width="28" height="28" viewBox="0 0 24 24" fill="#22C55E"><path d="M12 2L2 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/></svg>
+                <span class="contact-card-name">TryHackMe</span>
+                <span class="contact-card-user">@subramaniam004</span>
               </a>
-              <a href="https://app.hackthebox.com/profile/" target="_blank" rel="noopener noreferrer" class="profile-icon-link" aria-label="Hack The Box">
-                <img class="profile-platform-icon" src="https://cdn.simpleicons.org/hackthebox/00d4aa" alt="Hack The Box" />
+              <a href="https://app.hackthebox.com/profile/" target="_blank" rel="noopener noreferrer" class="contact-card">
+                <svg class="contact-icon" width="28" height="28" viewBox="0 0 24 24" fill="#00FF00"><path d="M20 11.07a8 8 0 00-16 0V16a4 4 0 001.17 2.83l1.43-1.43a2 2 0 01.58-.42V16a2 2 0 012 2v2a2 2 0 01-2-2v-1.59a8.04 8.04 0 002 .41V16a4 4 0 001.17-2.83L6.83 11.71a2 2 0 01-.58.42V13a2 2 0 01-2-2V9a2 2 0 002-2h12a2 2 0 002 2v4a2 2 0 01-2 2v-1.59a8.04 8.04 0 00-2-.41V11.07z"/></svg>
+                <span class="contact-card-name">Hack The Box</span>
+                <span class="contact-card-user">@subramaniam004</span>
+              </a>
+              <a href="mailto:subramaniambhavimane01@gmail.com" class="contact-card">
+                <svg class="contact-icon" width="28" height="28" viewBox="0 0 24 24" fill="#EA4335"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                <span class="contact-card-name">Email</span>
+                <span class="contact-card-user">subramaniambhavimane01@gmail.com</span>
               </a>
             </div>
+            <div class="map-card">
+              <h3>Location</h3>
+              <p class="map-subtitle">Based in Belagavi, Karnataka, India</p>
+              <div id="map" class="map-container"></div>
+              <div class="map-info">
+                <p><strong>Timezone:</strong> IST (UTC +5:30)</p>
+                <p><strong>Availability:</strong> Open to internships in Cybersecurity, Ethical Hacking, Network Security, Cloud Security, Web Security</p>
+              </div>
+            </div>
           </div>
-
-          <form id="contact-form" class="form-panel fade-item">
-            <label for="name">Name</label>
-            <input type="text" id="name" name="name" placeholder="Your name" required /> 
-
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="Your email" required />
-
+          <form id="contact-form" class="form-panel">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" placeholder="Your full name" required />
+            <span class="form-error" id="name-error"></span>
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="your@email.com" required />
+            <span class="form-error" id="email-error"></span>
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" name="subject" placeholder="What is this regarding?" required />
+            <span class="form-error" id="subject-error"></span>
             <label for="message">Message</label>
-            <textarea id="message" name="message" placeholder="Tell me about your project" required></textarea>
-
-            <button class="btn btn-primary" type="submit">Send Message</button>
+            <textarea id="message" name="message" placeholder="How can I help?" required></textarea>
+            <span class="form-error" id="message-error"></span>
+            <div style="display:none" aria-hidden="true">
+              <input type="text" id="honeypot" name="honeypot" tabindex="-1" autocomplete="off" />
+            </div>
+            <button class="btn btn-primary" type="submit" id="send-btn">
+              <span id="btn-text">Send Message</span>
+              <span id="btn-spinner" class="btn-spinner" style="display:none">Sending...</span>
+            </button>
             <p id="form-success" class="form-success" aria-live="polite"></p>
           </form>
         </div>
       </div>
     </section>
-
   </main>
 
   <footer class="site-footer">
-    <div class="container footer-inner fade-item">
+    <div class="container footer-inner">
       <div>
         <a class="brand" href="#hero">
-          <span class="brand-mark"></></span>
-          <span>Subbu</span>
+          <span class="brand-mark" aria-hidden="true">></span>
+          <span>Sub's Portfolio</span>
         </a>
-        <p style="margin: 0.5rem 0 0; color: var(--text-muted); font-size: 0.9rem;">&copy; 2026 Subramaniam Bhavimane</p>
+        <p>&copy; 2026 Subramaniam Bhavimane</p>
       </div>
-      <div class="footer-social-icons">
-        <a href="https://github.com/Subramaniam004" target="_blank" rel="noreferrer" class="footer-social-link" aria-label="GitHub">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
-          </svg>
-        </a>
-        <a href="https://www.linkedin.com/in/subramaniam-bhavimane004/" target="_blank" rel="noreferrer" class="footer-social-link" aria-label="LinkedIn">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-          </svg>
-        </a>
-        <a href="https://www.instagram.com/subramaniambhavimane/" target="_blank" rel="noreferrer" class="footer-social-link" aria-label="Instagram">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
-          </svg>
-        </a>
-        <a href="mailto:subramaniambhavimane01@gmail.com" class="footer-social-link" aria-label="Email">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-          </svg>
-        </a>
+      <div class="footer-social-links">
+        <a href="https://github.com/Subramaniam004" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/subramaniam-bhavimane004/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="mailto:subramaniambhavimane01@gmail.com">Email</a>
       </div>
     </div>
   </footer>
 
   <button id="back-to-top" class="back-to-top" aria-label="Back to top">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-      <polyline points="18 15 12 9 6 15"></polyline>
-    </svg>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"></polyline></svg>
   </button>
 
-  <script src="data/certifications.js"></script>
-  <script src="data/achievements.js"></script>
-  <script src="data/profiles.js"></script>
-  <script src="js/components.js"></script>
-  <script src="js/sections.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script src="js/script.js"></script>
-  <script src="js/terminal-popup.js"></script>
 </body>
 </html>
