@@ -19,27 +19,41 @@ const btnText = document.getElementById('btn-text');
 const btnSpinner = document.getElementById('btn-spinner');
 
 // Typing animation roles
-const roles = ['Web Application Security', 'Ethical Hacking', 'Secure Development'];
+const roles = ['Cybersecurity Enthusiast','Web Developer', 'CTF Player', 'Gamer','Linux User',];
 let roleIndex = 0, charIndex = 0, deleting = false;
 
 // Terminal Commands
 const startupCommands = [
-  { command: 'whoami', output: ['Subramaniam B'] },
-  { command: 'role', output: ['Cybersecurity Specialist | Web Developer'] },
+  { command: 'whoami', output: ['Subramaniam Bhavimane'] },
+  { command: 'role', output: ['Cybersecurity Aspirant | Web Developer | CTF Player'] },
   { command: 'skills', output: ['Python', 'JavaScript', 'Web Security', 'CTF', 'Linux'] },
-  { command: 'education', output: ['MCA Cybersecurity Student'] },
+  { command: 'education', output: ['Currently pursuing MCA'] },
   { command: 'help', output: ['Available: help, about, skills, projects, education, contact, resume, clear'] }
 ];
 
 const supportedCommands = {
-  help: () => ['Available commands: help, about, skills, projects, education, contact, resume, clear'],
+  help: () => ['Available commands: help, whoami, about, skills, projects, education, contact, resume, neofetch, clear, exit'],
+  whoami: () => ['Subramaniam B - MCA Student | Cybersecurity Enthusiast | Web Developer'],
   about: () => ['Cybersecurity student building secure applications and conducting vulnerability research.'],
   skills: () => ['Languages: Python, JavaScript, Java, SQL', 'Security: Web App Security, Network Security, OWASP'],
   projects: () => ['Security Portfolio - Terminal interface', 'Web Security Toolkit - Security utilities', 'CTF Write-ups - Challenge analysis'],
   education: () => ['MCA Cybersecurity (2025-Present)', 'BCA First Class Distinction (2025)'],
   contact: () => ['Email: subramaniambhavimane01@gmail.com', 'Location: Belgaum, India'],
   resume: () => { window.open('Subramaniam_Bhavimane_Resume_New.pdf', '_blank'); return ['Opening resume...']; },
-  clear: () => { terminalOutput.innerHTML = ''; return []; }
+  neofetch: () => [
+    '   /\\_/\\     subbu@cyber',
+    '  ( o.o )    -----------',
+    '   > ^ <     OS: SubOS v1.0.0',
+    '             Kernel: WebKit 537.36',
+    '             Uptime: ' + Math.floor(performance.now() / 1000) + 's',
+    '             Shell: bash (interactive)',
+    '             Resolution: ' + window.screen.width + 'x' + window.screen.height,
+    '             Terminal: SubTerminal',
+    '             CPU: Intel Core i7-13700K',
+    '             Memory: 16GB DDR5'
+  ],
+  clear: () => { terminalOutput.innerHTML = ''; return []; },
+  exit: () => ['Goodbye! Feel free to close this tab.']
 };
 
 let commandHistory = [], historyIndex = -1, isTypingStartup = true, startupIndex = 0, startupCharIndex = 0, currentStartupLine = null;
@@ -95,7 +109,7 @@ function createOutputLine(text, type) {
 }
 function createCommandLine(command) {
   const line = document.createElement('div');
-  line.innerHTML = '<span class="terminal-prompt">$</span> <span class="output-command">' + escapeHtml(command) + '</span>';
+  line.innerHTML = '<span class="terminal-prompt">❯</span> <span class="output-command">' + escapeHtml(command) + '</span>';
   terminalOutput.appendChild(line); terminalOutput.scrollTop = terminalOutput.scrollHeight;
 }
 function typeStartup() {
@@ -443,6 +457,34 @@ function init() {
     window.addEventListener('scroll', function() { backToTopButton.classList.toggle('visible', window.scrollY > 400); });
   }
 
+  // Terminal buttons click handler
+  const termButtons = document.querySelectorAll('.term-btn');
+  termButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const cmd = btn.getAttribute('data-cmd');
+      if (cmd) {
+        processCommand(cmd);
+      }
+    });
+  });
+
+  // Scroll indicator click handler
+  const scrollIndicator = document.getElementById('scroll-indicator');
+  if (scrollIndicator) {
+    scrollIndicator.addEventListener('click', function() {
+      document.getElementById('about')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }
+
+  // Terminal toggle bar click handler
+  const toggleBar = document.getElementById('terminal-toggle-bar');
+  const wrapper = document.querySelector('.terminal-wrapper');
+  if (toggleBar && wrapper) {
+    toggleBar.addEventListener('click', () => {
+      wrapper.classList.toggle('expanded');
+    });
+  }
+
   initTheme();
   initTyping();
   initTerminal();
@@ -451,6 +493,9 @@ function init() {
   initNameHover();
   initScrollReveal();
   initMap();
+  initCursorGlow();
+  initCustomCursor();
+  initNetworkMesh();
 
   var certContainer = document.getElementById('certifications-container');
   if (certContainer) renderFeaturedCertifications(certContainer);
@@ -463,3 +508,242 @@ function init() {
 
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
 else init();
+
+function initCursorGlow() {
+  const hero = document.getElementById('hero');
+  const glow = document.getElementById('cursor-glow');
+  if (!hero || !glow) return;
+  if (window.matchMedia('(max-width: 768px)').matches) {
+    glow.style.display = 'none';
+    return;
+  }
+  let targetX = 0, targetY = 0, currentX = 0, currentY = 0, isVisible = false;
+  hero.addEventListener('mouseenter', () => { glow.style.opacity = '1'; isVisible = true; });
+  hero.addEventListener('mouseleave', () => { glow.style.opacity = '0'; isVisible = false; });
+  hero.addEventListener('mousemove', (e) => {
+    targetX = e.clientX; targetY = e.clientY;
+    if (!isVisible) { glow.style.opacity = '1'; isVisible = true; }
+  });
+  function updateGlow() {
+    if (isVisible) {
+      currentX += (targetX - currentX) * 0.1;
+      currentY += (targetY - currentY) * 0.1;
+      glow.style.left = currentX + 'px';
+      glow.style.top = currentY + 'px';
+    }
+    requestAnimationFrame(updateGlow);
+  }
+  updateGlow();
+}
+
+function initCustomCursor() {
+  const hero = document.getElementById('hero');
+  if (!hero) return;
+  if (window.matchMedia('(max-width: 768px)').matches || window.matchMedia('(hover: none) and (pointer: coarse)').matches) return;
+  
+  const ring = document.createElement('div');
+  ring.className = 'custom-cursor-ring';
+  document.body.appendChild(ring);
+  
+  const dot = document.createElement('div');
+  dot.className = 'custom-cursor-dot';
+  document.body.appendChild(dot);
+  
+  let targetX = 0, targetY = 0;
+  let ringX = 0, ringY = 0;
+  let dotX = 0, dotY = 0;
+  let isVisible = false;
+  
+  hero.addEventListener('mouseenter', () => {
+    ring.style.opacity = '1';
+    dot.style.opacity = '1';
+    isVisible = true;
+  });
+  
+  hero.addEventListener('mouseleave', () => {
+    ring.style.opacity = '0';
+    dot.style.opacity = '0';
+    isVisible = false;
+  });
+  
+  hero.addEventListener('mousemove', (e) => {
+    targetX = e.clientX;
+    targetY = e.clientY;
+    if (!isVisible) {
+      ring.style.opacity = '1';
+      dot.style.opacity = '1';
+      isVisible = true;
+    }
+  });
+  
+  function updateCursor() {
+    if (isVisible) {
+      ringX += (targetX - ringX) * 0.15;
+      ringY += (targetY - ringY) * 0.15;
+      ring.style.left = ringX + 'px';
+      ring.style.top = ringY + 'px';
+      
+      dotX += (targetX - dotX) * 0.4;
+      dotY += (targetY - dotY) * 0.4;
+      dot.style.left = dotX + 'px';
+      dot.style.top = dotY + 'px';
+    }
+    requestAnimationFrame(updateCursor);
+  }
+  updateCursor();
+}
+
+function initNetworkMesh() {
+  const canvas = document.getElementById('network-canvas');
+  if (!canvas) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const ctx = canvas.getContext('2d');
+  let animId = null, nodes = [], particles = [], sideElements = [];
+  const maxNodes = 45;
+  const maxParticles = 15;
+  const cyberWords = ['0x', 'sudo', 'ssh', 'HTTP', 'HTTPS', 'GET', 'POST', 'TCP', 'UDP', 'JWT', 'AES', 'RSA', 'IPv4', '0101', '[ ]', '{ }', '🔑', '🛡️'];
+
+  function resize() {
+    const hero = document.getElementById('hero');
+    if (hero) {
+      const r = hero.getBoundingClientRect();
+      canvas.width = r.width;
+      canvas.height = r.height;
+    }
+  }
+
+  function initElements() {
+    nodes = [];
+    for (let i = 0; i < maxNodes; i++) {
+      nodes.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.4,
+        radius: 2 + Math.random() * 2
+      });
+    }
+    particles = [];
+    for (let i = 0; i < maxParticles; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
+        text: cyberWords[Math.floor(Math.random() * cyberWords.length)],
+        alpha: 0.1 + Math.random() * 0.15,
+        scale: 0.8 + Math.random() * 0.4
+      });
+    }
+    sideElements = [];
+    for (let i = 0; i < 5; i++) {
+      sideElements.push({
+        x: 20 + Math.random() * 30,
+        y: Math.random() * canvas.height,
+        vy: 0.5 + Math.random() * 1,
+        chars: ['0', '1', '0', '1', '0', '1'],
+        charIndex: 0
+      });
+    }
+    for (let i = 0; i < 5; i++) {
+      sideElements.push({
+        x: canvas.width - 50 + Math.random() * 30,
+        y: Math.random() * canvas.height,
+        vy: 0.5 + Math.random() * 1,
+        chars: ['0', '1', '0', '1', '0', '1'],
+        charIndex: 0
+      });
+    }
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    const colorPrimary = isLight ? 'rgba(59,130,246,0.15)' : 'rgba(79,195,255,0.15)';
+    const colorLine = isLight ? 'rgba(59,130,246,0.05)' : 'rgba(79,195,255,0.05)';
+
+    for (let i = 0; i < nodes.length; i++) {
+      const n = nodes[i];
+      n.x += n.vx;
+      n.y += n.vy;
+      if (n.x < 0 || n.x > canvas.width) n.vx *= -1;
+      if (n.y < 0 || n.y > canvas.height) n.vy *= -1;
+
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.radius, 0, Math.PI * 2);
+      ctx.fillStyle = colorPrimary;
+      ctx.fill();
+
+      for (let j = i + 1; j < nodes.length; j++) {
+        const n2 = nodes[j];
+        const dx = n.x - n2.x;
+        const dy = n.y - n2.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 120) {
+          ctx.beginPath();
+          ctx.moveTo(n.x, n.y);
+          ctx.lineTo(n2.x, n2.y);
+          ctx.strokeStyle = colorLine;
+          ctx.lineWidth = 0.8;
+          ctx.stroke();
+
+          if (Math.random() > 0.9995) {
+            ctx.beginPath();
+            ctx.arc(n.x + dx * 0.5, n.y + dy * 0.5, 3, 0, Math.PI * 2);
+            ctx.fillStyle = isLight ? 'rgba(59,130,246,0.4)' : 'rgba(79,195,255,0.4)';
+            ctx.fill();
+          }
+        }
+      }
+    }
+
+    ctx.font = '11px "JetBrains Mono", monospace';
+    for (let i = 0; i < particles.length; i++) {
+      const p = particles[i];
+      p.x += p.vx;
+      p.y += p.vy;
+      if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+      if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+      ctx.fillStyle = isLight ? `rgba(15,23,42,${p.alpha * 0.6})` : `rgba(79,195,255,${p.alpha})`;
+      ctx.fillText(p.text, p.x, p.y);
+    }
+
+    ctx.font = '12px "JetBrains Mono", monospace';
+    for (let i = 0; i < sideElements.length; i++) {
+      const s = sideElements[i];
+      s.y += s.vy;
+      if (s.y > canvas.height) {
+        s.y = -20;
+        s.x = i < 5 ? 20 + Math.random() * 30 : canvas.width - 50 + Math.random() * 30;
+      }
+      if (Math.random() > 0.95) {
+        s.charIndex = (s.charIndex + 1) % s.chars.length;
+      }
+      ctx.fillStyle = isLight ? 'rgba(15,23,42,0.15)' : 'rgba(79,195,255,0.25)';
+      ctx.fillText(s.chars[s.charIndex], s.x, s.y);
+    }
+
+    animId = requestAnimationFrame(draw);
+  }
+
+  function start() {
+    resize();
+    initElements();
+    if (animId) cancelAnimationFrame(animId);
+    animId = requestAnimationFrame(draw);
+  }
+
+  window.addEventListener('resize', () => {
+    resize();
+    initElements();
+  });
+
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden && animId) { cancelAnimationFrame(animId); animId = null; }
+    else if (!document.hidden && !animId) start();
+  });
+
+  start();
+}
+
